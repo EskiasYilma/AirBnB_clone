@@ -2,7 +2,7 @@
 ![Latest commit](https://img.shields.io/github/last-commit/EskiasYilma/AirBnB_clone?style=round-square)
 
 ---
-![](https://s3.amazonaws.com/alx-intranet.hbtn.io/uploads/medias/2018/6/65f4a1dd9c51265f49d0.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIARDDGGGOUSBVO6H7D%2F20230306%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20230306T142614Z&X-Amz-Expires=86400&X-Amz-SignedHeaders=host&X-Amz-Signature=87ce82fe3c547da81afb6b56e07e2f04c034368f739ed54126e3f787be7a448d)
+![](https://camo.githubusercontent.com/a8cd2eef2325c425519095dc2501111e630a77eddb454938c527cb82ea9c3aeb/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f696e7472616e65742d70726f6a656374732d66696c65732f686f6c626572746f6e7363686f6f6c2d6869676865722d6c6576656c5f70726f6772616d6d696e672b2f3236332f4842544e2d68626e622d46696e616c2e706e67)
 ---
 
 ## Background Context
