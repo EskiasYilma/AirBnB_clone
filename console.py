@@ -29,6 +29,7 @@ class HBNBCommand(cmd.Cmd):
                     "State": State, "Review": Review,
                     "Place": Place, "City": City, "Amenity": Amenity}
     prompt = "(hbnb) "
+    storage.reload()
 
     def do_quit(self, arg):
         """Quit command to exit the program\n"""
