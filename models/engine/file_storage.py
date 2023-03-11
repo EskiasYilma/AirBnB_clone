@@ -45,7 +45,7 @@ class FileStorage:
 
     def __init__(self):
         """
-
+        intiialize all known models
         """
         self.__models = {"BaseModel": BaseModel, "User": User,
                          "State": State, "Review": Review, "Place": Place,
