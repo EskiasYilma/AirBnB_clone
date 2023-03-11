@@ -49,8 +49,8 @@ class HBNBCommand(cmd.Cmd):
         if arg:
             if str(arg) in self.__all_models.keys():
                 model = self.__all_models[arg]()
-                model.save()
                 print(model.id)
+                model.save()
             else:
                 print("** class doesn't exist **")
         else:
@@ -63,8 +63,10 @@ class HBNBCommand(cmd.Cmd):
                 cls, id = str(arg).split(" ")
                 if cls not in self.__all_models.keys():
                     print("** class doesn't exist **")
-                if id not in [y.id for x, y in storage.all().items()]:
+                    return
+                elif id not in [y.id for x, y in storage.all().items()]:
                     print("** no instance found **")
+                    return
                 else:
                     all_objs = storage.all()
                     for obj_id, obj_val in all_objs.items():
@@ -73,12 +75,14 @@ class HBNBCommand(cmd.Cmd):
                             print(obj)
                             return
 
-            if len(str(arg).split(" ")) == 1:
+            elif len(str(arg).split(" ")) == 1:
                 cls = str(arg).split(" ")[0]
                 if cls not in self.__all_models.keys():
                     print("** class doesn't exist **")
+                    return
                 else:
                     print("** instance id missing **")
+                    return
 
         else:
             print("** class name missing **")
@@ -137,6 +141,7 @@ class HBNBCommand(cmd.Cmd):
                 cls, id, attr_nm, attr_val = str(arg).split(" ")
                 if cls not in self.__all_models.keys():
                     print("** class doesn't exist **")
+                    return
                 if id not in [y.id for x, y in storage.all().items()]:
                     print("** no instance found **")
                     return
@@ -153,26 +158,34 @@ class HBNBCommand(cmd.Cmd):
                 cls, id, attr_nm = str(arg).split(" ")
                 if cls not in self.__all_models.keys():
                     print("** class doesn't exist **")
+                    return
                 if id not in [y.id for x, y in storage.all().items()]:
                     print("** no instance found **")
+                    return
                 else:
                     print("** value missing **")
+                    return
 
             elif len(str(arg).split(" ")) == 2:
                 cls, id = str(arg).split(" ")
                 if cls not in self.__all_models.keys():
                     print("** class doesn't exist **")
+                    return
                 if id not in [y.id for x, y in storage.all().items()]:
                     print("** no instance found **")
+                    return
                 else:
                     print("** attribute name missing **")
+                    return
 
             elif len(str(arg).split(" ")) == 1:
                 cls = str(arg).split(" ")[0]
                 if cls not in self.__all_models.keys():
                     print("** class doesn't exist **")
+                    return
                 else:
                     print("** instance id missing **")
+                    return
         else:
             print("** class name missing **")
 
@@ -290,8 +303,7 @@ class HBNBCommand(cmd.Cmd):
                                    str(i) + " " + str(j))
             else:
                 return
-        else:
-            print("Not a valid command")
+
 
 
 if __name__ == '__main__':
