@@ -50,7 +50,6 @@ class FileStorage:
         self.__models = {"BaseModel": BaseModel, "User": User,
                          "State": State, "Review": Review, "Place": Place,
                          "City": City, "Amenity": Amenity}
-        self.reload()
 
     def all(self):
         """
@@ -66,9 +65,8 @@ class FileStorage:
         -----------------------
         Sets in __objects the obj with key <obj class name>.id.
         """
-        if obj is not None:
-            key = "{}.{}".format(obj.__class__.__name__, obj.id)
-            self.__objects[key] = obj
+        key = "{}.{}".format(obj.__class__.__name__, obj.id)
+        self.__objects[key] = obj
 
     def save(self):
         """
@@ -92,14 +90,13 @@ class FileStorage:
         self.__objects = {}
         try:
             with open(self.__file_path,
-                      mode="r+", encoding="utf-8") as f:
+                      mode="r", encoding="utf-8") as f:
                 json_file = json.load(f)
-                for key, value in json_file.items():
-                    cls = value.pop("__class__", None)
-                    if cls not in self.__models.keys():
-                        continue
-                    self.__objects[key] = self.__models[cls](**value)
         except Exception as e:
-            pass
+            return
 
-
+        for key, value in json_file.items():
+            cls = value.pop("__class__", None)
+            if cls not in self.__models.keys():
+                continue
+            self.__objects[key] = self.__models[cls](**value)
