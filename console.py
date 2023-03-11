@@ -46,15 +46,16 @@ class HBNBCommand(cmd.Cmd):
 
     def do_create(self, arg):
         """Usage:\n\t create <model_name>"""
-        if arg:
-            if str(arg) in self.__all_models.keys():
-                model = self.__all_models[arg]()
-                model.save()
-                print(model.id)
-            else:
-                print("** class doesn't exist **")
-        else:
+        arg = arg.split()
+        if len(arg) != 1:
             print("** class name missing **")
+        else:
+            if len(arg) > 0 and arg[0] in self.__all_models.keys():
+                new_obj = eval(arg[0])()
+                print(new_obj.id)
+                new_obj.save()
+            else:
+                return
 
     def do_show(self, arg):
         """Usage:\n\t show <model_name>"""
