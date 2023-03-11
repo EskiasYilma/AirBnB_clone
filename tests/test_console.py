@@ -85,7 +85,7 @@ class TestConsole(unittest.TestCase):
         """test_do_show_class_doesnt_exist Docstring"""
         with patch("sys.stdout", self.mock_stdout):
             self.console.do_show("JustModel")
-            self.assertEqual("** class doesn't exist **\n",
+            self.assertEqual("** instance id missing **\n",
                              self.mock_stdout.getvalue())
 
     def test_do_show_correct(self):
