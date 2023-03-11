@@ -45,7 +45,7 @@ class FileStorage:
 
     def __init__(self):
         """
-        Init function docstring
+
         """
         self.__models = {"BaseModel": BaseModel, "User": User,
                          "State": State, "Review": Review, "Place": Place,
@@ -65,9 +65,8 @@ class FileStorage:
         -----------------------
         Sets in __objects the obj with key <obj class name>.id.
         """
-        if obj is not None:
-            key = "{}.{}".format(obj.__class__.__name__, obj.id)
-            self.__objects[key] = obj
+        key = "{}.{}".format(obj.__class__.__name__, obj.id)
+        self.__objects[key] = obj
 
     def save(self):
         """
@@ -94,7 +93,7 @@ class FileStorage:
                       mode="r", encoding="utf-8") as f:
                 json_file = json.load(f)
         except Exception as e:
-            pass
+            return
 
         for key, value in json_file.items():
             cls = value.pop("__class__", None)
