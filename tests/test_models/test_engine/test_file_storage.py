@@ -8,6 +8,7 @@ from datetime import datetime
 from models.engine.file_storage import FileStorage
 from models.base_model import BaseModel
 from models.place import Place
+from models.user import User
 from models.engine.file_storage import FileStorage
 import doctest
 
@@ -72,12 +73,15 @@ class TestFileStorage(unittest.TestCase):
 
         Test that the new method adds an object to the __objects dictionary.
         """
-        model = BaseModel()
-        model.save()
-        self.storage.new(model)
-        key = "{}.{}".format(model.__class__.__name__, model.id)
+        self.model_1.save()
+        self.storage.new(self.model_1)
+        key = "{}.{}".format(self.model_1.__class__.__name__, self.model_1.id)
         self.assertIn(key, self.storage.all().keys())
         self.assertEqual(len(self.storage.all()), self.json_file_length + 1)
+        a = User()
+        self.storage.new(a)
+        self.assertEqual(len(self.storage.all()), self.json_file_length + 2)
+
 
     def test_save(self):
         """
@@ -100,7 +104,18 @@ class TestFileStorage(unittest.TestCase):
         self.assertEqual(len(self.storage.all()), self.json_file_length + 2)
 
     def test_reload(self):
-        pass
+        """
+        test_reload function docstring
+
+        Test that the reload method loads the objects from the JSON file.
+        """
+        model = BaseModel()
+        self.storage.new(model)
+        self.storage.save()
+        self.storage.reload()
+        key = "{}.{}".format(model.__class__.__name__, model.id)
+        self.assertIn(key, self.storage.all().keys())
+
 
 if __name__ == "__main__":
     unittest.main()
