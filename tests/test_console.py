@@ -9,8 +9,15 @@ from unittest.mock import patch
 from datetime import datetime
 from console import HBNBCommand
 from models.base_model import BaseModel
+from models.user import User
+from models.state import State
+from models.review import Review
+from models.place import Place
+from models.city import City
+from models.amenity import Amenity
 from models import storage
 from models.engine.file_storage import FileStorage
+import os
 
 
 class TestConsole(unittest.TestCase):
@@ -36,6 +43,11 @@ class TestConsole(unittest.TestCase):
 
         self.console = HBNBCommand()
         self.mock_stdout = StringIO()
+
+    def tearDown(self):
+        all_objs = storage.all()
+        for k in list(all_objs.keys()):
+            del all_objs[k]
 
     def test_do_quit(self):
         """test_do_quit Docstring"""
@@ -231,6 +243,80 @@ class TestConsole(unittest.TestCase):
             self.console.do_update("BaseModel " + obj_id + " name 'test'")
             self.assertTrue("test" in getattr(list(storage.all().values())[0],
                             "name"))
+
+
+class TestConsole_count(unittest.TestCase):
+    """
+    Unittests for count method
+    """
+    def setUp(self):
+        """
+        Setting up testing environment
+        """
+        self.console = HBNBCommand()
+        self.mock_stdout = StringIO()
+        try:
+            os.rename("file.json", "tmp")
+        except IOError:
+            pass
+        FileStorage._FileStorage__objects = {}
+
+    @classmethod
+    def tearDown(self):
+        """
+        Cleanup environment
+        """
+        try:
+            os.remove("file.json")
+        except IOError:
+            pass
+        try:
+            os.rename("tmp", "file.json")
+        except IOError:
+            pass
+
+    def test_count_valid(self):
+        """
+        Tests for .count() methods with correct input and output
+        """
+        with patch("sys.stdout", new=StringIO()) as f:
+            self.console.do_create("BaseModel")
+            self.console.do_create("User")
+            self.console.do_create("State")
+            self.console.do_create("Review")
+            self.console.do_create("Place")
+            self.console.do_create("City")
+            self.console.do_create("Amenity")
+
+        with patch("sys.stdout", new=StringIO()) as f:
+            self.assertFalse(self.console.onecmd("BaseModel.count()"))
+            self.assertEqual("1", f.getvalue().strip())
+        with patch("sys.stdout", new=StringIO()) as f:
+            self.assertFalse(self.console.onecmd("User.count()"))
+            self.assertEqual("1", f.getvalue().strip())
+        with patch("sys.stdout", new=StringIO()) as f:
+            self.assertFalse(self.console.onecmd("State.count()"))
+            self.assertEqual("1", f.getvalue().strip())
+        with patch("sys.stdout", new=StringIO()) as f:
+            self.assertFalse(self.console.onecmd("Review.count()"))
+            self.assertEqual("1", f.getvalue().strip())
+        with patch("sys.stdout", new=StringIO()) as f:
+            self.assertFalse(self.console.onecmd("Place.count()"))
+            self.assertEqual("1", f.getvalue().strip())
+        with patch("sys.stdout", new=StringIO()) as f:
+            self.assertFalse(self.console.onecmd("City.count()"))
+            self.assertEqual("1", f.getvalue().strip())
+        with patch("sys.stdout", new=StringIO()) as f:
+            self.assertFalse(self.console.onecmd("Amenity.count()"))
+            self.assertEqual("1", f.getvalue().strip())
+
+    def test_count_no_class(self):
+        """
+        Tests for .count() methods with correct input but no classes
+        """
+        with patch("sys.stdout", new=StringIO()) as f:
+            self.assertFalse(self.console.onecmd("BaseModel.count()"))
+            self.assertEqual("0", f.getvalue().strip())
 
 
 if __name__ == "__main__":

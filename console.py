@@ -269,11 +269,12 @@ class HBNBCommand(cmd.Cmd):
             self.do_all(cls)
         elif arg[:8] == ".count()":
             all_objs = storage.all()
-            obj = {}
+            count = 0
             for obj_id, obj_val in all_objs.items():
-                if cls == obj_id.split(".")[0]:
-                    obj[obj_id] = obj_val
-            print(len(obj))
+                if cls in str(obj_id):
+                    count += 1
+            print(count)
+            return
         elif arg[:6] == ".show(":
             self.do_show(cls + ' ' + arg[6:-1])
 
