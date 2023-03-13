@@ -64,16 +64,15 @@ class HBNBCommand(cmd.Cmd):
                 if cls not in self.__all_models.keys():
                     print("** class doesn't exist **")
                     return
-                elif id not in [y.id for x, y in storage.all().items()]:
-                    print("** no instance found **")
-                    return
                 else:
                     all_objs = storage.all()
                     for obj_id, obj_val in all_objs.items():
-                        if str(id) == str(obj_val.id):
+                        if str(id) == str(obj_val.id) and cls in str(obj_id):
                             obj = all_objs[obj_id]
                             print(obj)
                             return
+                    else:
+                        print("** no instance found **")
 
             elif len(str(arg).split(" ")) == 1:
                 cls = str(arg).split(" ")[0]
@@ -114,14 +113,14 @@ class HBNBCommand(cmd.Cmd):
                 cls, id = str(arg).split(" ")
                 if cls not in self.__all_models.keys():
                     print("** class doesn't exist **")
-                elif id not in [y.id for x, y in storage.all().items()]:
-                    print("** no instance found **")
                 else:
                     all_objs = storage.all()
                     for obj_id, obj_val in all_objs.items():
-                        if str(id) == str(obj_val.id):
+                        if str(id) == str(obj_val.id) and cls in str(obj_id):
                             all_objs.pop(obj_id)
                             break
+                    else:
+                        print("** no instance found **")
                     storage.save()
                     storage.reload()
 
@@ -148,7 +147,7 @@ class HBNBCommand(cmd.Cmd):
                 else:
                     all_objs = storage.all()
                     for obj_id, obj_val in all_objs.items():
-                        if str(id) == str(obj_val.id):
+                        if str(id) == str(obj_val.id) and cls in str(type(obj_id)):
                             setattr(obj_val, attr_nm, attr_val)
                             setattr(obj_val, "updated_at", datetime.now())
                             storage.save()

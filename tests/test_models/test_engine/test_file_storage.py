@@ -24,6 +24,14 @@ class TestFileStorage(unittest.TestCase):
         Set up the test environment.
         """
         self.storage = FileStorage()
+
+        args = {'created_at': datetime(2023, 3, 8, 19, 30, 48, 436849),
+                'updated_at': datetime(2023, 3, 8, 19, 30, 48, 436966),
+                'id': 'd42f98a5-71d3-4237-83f3-f480c9dc3c18',
+                'name': 'model_1'}
+        self.model_1 = BaseModel(args)
+
+
         self.json_file_length = 0
         if os.path.isfile("file.json"):
             self.json_file_length = len(self.storage.all())
@@ -56,6 +64,7 @@ class TestFileStorage(unittest.TestCase):
         """
 
         self.assertEqual(len(self.storage.all()), self.json_file_length)
+
 
     def test_new(self):
         """
