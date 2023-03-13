@@ -63,10 +63,13 @@ class TestConsole(unittest.TestCase):
         """test_do_create Docstring"""
         with patch("sys.stdout", self.mock_stdout):
             self.console.do_create("BaseModel")
-            all_objs = storage.all()
-            self.assertTrue(all_objs)
-            self.assertTrue("BaseModel." +
-                            list(all_objs.values())[0].id in all_objs.keys())
+        output = self.mock_stdout.getvalue().strip()
+        with patch("sys.stdout", self.mock_stdout):
+            self.console.do_show("BaseModel {}".format(output))
+        output2 = self.mock_stdout.getvalue().strip()
+
+        self.assertTrue(output in output2)
+
 
     def test_do_show_instance_not_found(self):
         """test_do_show_instance_not_found Docstring"""

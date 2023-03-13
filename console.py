@@ -118,11 +118,12 @@ class HBNBCommand(cmd.Cmd):
                     for obj_id, obj_val in all_objs.items():
                         if str(id) == str(obj_val.id) and cls in str(obj_id):
                             all_objs.pop(obj_id)
-                            break
+                            storage.save()
+                            storage.reload()
+                            return
                     else:
                         print("** no instance found **")
-                    storage.save()
-                    storage.reload()
+
 
             elif len(str(arg).split(" ")) == 1:
                 cls = str(arg).split(" ")[0]
@@ -141,17 +142,16 @@ class HBNBCommand(cmd.Cmd):
                 if cls not in self.__all_models.keys():
                     print("** class doesn't exist **")
                     return
-                if id not in [y.id for x, y in storage.all().items()]:
-                    print("** no instance found **")
-                    return
                 else:
                     all_objs = storage.all()
                     for obj_id, obj_val in all_objs.items():
-                        if str(id) == str(obj_val.id) and cls in str(type(obj_id)):
+                        if str(id) == str(obj_val.id) and cls in str(obj_id):
                             setattr(obj_val, attr_nm, attr_val)
                             setattr(obj_val, "updated_at", datetime.now())
                             storage.save()
                             return
+                    else:
+                        print("** no instance found **")
 
             elif len(str(arg).split(" ")) == 3:
                 cls, id, attr_nm = str(arg).split(" ")
