@@ -59,7 +59,7 @@ class FileStorage:
         """
         return self.__objects
 
-    def new(self, obj):
+    def new(self, obj=None):
         """
         new Function Docstring
         -----------------------

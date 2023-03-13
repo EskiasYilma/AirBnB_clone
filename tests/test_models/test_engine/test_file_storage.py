@@ -73,6 +73,7 @@ class TestFileStorage(unittest.TestCase):
         Test that the new method adds an object to the __objects dictionary.
         """
         model = BaseModel()
+        model.save()
         self.storage.new(model)
         key = "{}.{}".format(model.__class__.__name__, model.id)
         self.assertIn(key, self.storage.all().keys())
