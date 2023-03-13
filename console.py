@@ -123,8 +123,6 @@ class HBNBCommand(cmd.Cmd):
                             return
                     else:
                         print("** no instance found **")
-
-
             elif len(str(arg).split(" ")) == 1:
                 cls = str(arg).split(" ")[0]
                 if cls not in self.__all_models.keys():
