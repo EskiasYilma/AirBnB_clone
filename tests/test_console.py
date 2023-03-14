@@ -247,19 +247,18 @@ class TestConsole(unittest.TestCase):
 
 class TestConsole_count(unittest.TestCase):
     """
-    Unittests for count method
+    Unittests for .count() method
     """
     def setUp(self):
         """
         Setting up testing environment
         """
         self.console = HBNBCommand()
-        self.mock_stdout = StringIO()
-        try:
-            os.rename("file.json", "tmp")
-        except IOError:
-            pass
-        FileStorage._FileStorage__objects = {}
+        # try:
+        #     os.rename("file.json", "tmp")
+        # except IOError:
+        #     pass
+        # FileStorage._FileStorage__objects = {}
 
     @classmethod
     def tearDown(self):

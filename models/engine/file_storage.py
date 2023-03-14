@@ -42,14 +42,9 @@ class FileStorage:
     """
     __file_path = "file.json"
     __objects = {}
-
-    def __init__(self):
-        """
-        intiialize all known models
-        """
-        self.__models = {"BaseModel": BaseModel, "User": User,
-                         "State": State, "Review": Review, "Place": Place,
-                         "City": City, "Amenity": Amenity}
+    __models = {"BaseModel": BaseModel, "User": User,
+                "State": State, "Review": Review, "Place": Place,
+                "City": City, "Amenity": Amenity}
 
     def all(self):
         """
